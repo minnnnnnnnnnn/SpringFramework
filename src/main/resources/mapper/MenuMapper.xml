@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.MenuMapper">
+
+    <select id="selectMenuKo"
+            resultType="org.zerock.dto.MenuDto">
+        SELECT pk, content FROM menu_ko ORDER BY pk
+    </select>
+
+    <select id="selectMenuEn"
+            resultType="org.zerock.dto.MenuDto">
+        SELECT pk, content FROM menu_en ORDER BY pk
+    </select>
+
+    <select id="selectMenuCh"
+            resultType="org.zerock.dto.MenuDto">
+        SELECT pk, content FROM menu_ch ORDER BY pk
+    </select>
+
+</mapper>
