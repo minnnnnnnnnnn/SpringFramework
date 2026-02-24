@@ -3,6 +3,7 @@ package org.zerock.dto;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Builder
@@ -17,5 +18,10 @@ public class BoardDto {
     private LocalDateTime regDate;
     private LocalDateTime updateDate;
     private boolean delFlag;
+
+    public String getCreatedDate() {
+
+        return regDate.format(DateTimeFormatter.ISO_DATE);
+    }
 
 }
