@@ -21,5 +21,4 @@ public class ReplyDto {
     private boolean delFlag;
 
     private Long bno;
-
 }

@@ -13,7 +13,7 @@ import java.util.List;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j2
-public class BoardMapperTest {
+public class BoardMapperTests {
 
     @Autowired
     private BoardMapper boardMapper;
