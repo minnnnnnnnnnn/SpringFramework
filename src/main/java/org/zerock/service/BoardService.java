@@ -38,4 +38,9 @@ public class BoardService {
         return boardDto;
     }
 
+    public void remove(Long bno) {
+
+        boardMapper.remove(bno);
+    }
+
 }

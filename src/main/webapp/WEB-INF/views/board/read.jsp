@@ -20,7 +20,7 @@
 
                 <div class="mb-3 input-group input-group-lg">
                     <span class="input-group-text">Content</span>
-                    <textarea class="form-control" name="content" rows="3" readonly> <c:out value='${board.title}'/></textarea>
+                    <textarea class="form-control" name="content" rows="3" readonly> <c:out value='${board.content}'/></textarea>
                 </div>
 
                 <div class="mb-3 input-group input-group-lg">

@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.dto.BoardDto;
 import org.zerock.service.BoardService;
@@ -59,5 +56,30 @@ public class BoardController {
         model.addAttribute("board", dto);
 
         return "/board/read";
+    }
+
+    @GetMapping("/modify/{bno}")
+    public String modifyGET(@PathVariable("bno") Long bno, Model model) {
+
+        log.info("--------");
+        log.info("board modify get");
+
+        BoardDto dto = boardService.read(bno);
+
+        model.addAttribute("board", dto);
+
+        return "/board/modify";
+    }
+
+    @PostMapping("/remove")
+    public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
+
+        log.info("--------");
+        log.info("board remove post");
+
+        boardService.remove(bno);
+
+        rttr.addFlashAttribute("result", bno);
+        return "redirect:/board/list";
     }
 }
