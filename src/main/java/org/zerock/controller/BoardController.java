@@ -18,12 +18,15 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/list")
-    public void list(Model model) {
+    public void list(
+            @RequestParam(name="page", defaultValue = "1") int page,
+            @RequestParam(name="size", defaultValue = "10") int size,
+            Model model) {
 
         log.info("--------");
         log.info("board list");
 
-        model.addAttribute("list", boardService.getList());
+        model.addAttribute("dto", boardService.getList(page, size));
     }
 
     @GetMapping("/register")

@@ -32,4 +32,16 @@
         order by bno desc
     </select>
 
+    <select id="list2" resultType="BoardDto">
+        select bno, title, writer, regDate from tbl_board
+        where delFlag = false
+        order by bno desc
+        limit #{count} offset #{skip}
+    </select>
+
+    <select id="listCount" resultType="int">
+        select count(bno) from tbl_board
+        where delFlag = false
+    </select>
+
 </mapper>
