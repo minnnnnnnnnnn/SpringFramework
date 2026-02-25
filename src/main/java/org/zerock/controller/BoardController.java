@@ -71,6 +71,17 @@ public class BoardController {
         return "/board/modify";
     }
 
+    @PostMapping("/modify")
+    public String modifyPost(BoardDto boardDto) {
+
+        log.info("--------");
+        log.info("board modify post");
+
+        boardService.modify(boardDto);
+
+        return "redirect:/board/read/" + boardDto.getBno();
+    }
+
     @PostMapping("/remove")
     public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
 

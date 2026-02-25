@@ -43,4 +43,9 @@ public class BoardService {
         boardMapper.remove(bno);
     }
 
+    public void modify(BoardDto boardDto) {
+
+        boardMapper.update(boardDto);
+    }
+
 }
