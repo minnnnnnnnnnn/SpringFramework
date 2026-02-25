@@ -26,7 +26,7 @@
         where bno = #{bno}
     </update>
 
-    <select id="list">
+    <select id="list" resultType="BoardDto">
         select bno, title, writer, regDate from tbl_board
         where delFlag = false
         order by bno desc
@@ -42,6 +42,41 @@
     <select id="listCount" resultType="int">
         select count(bno) from tbl_board
         where delFlag = false
+    </select>
+
+    <sql id="search">
+        <if test="types != null and keyword != null and keyword != ''" >
+            <foreach collection="types" item="type" open="and (" close=")" separator="or">
+                <if test='type.equals("T")'>
+                    title like concat('%', #{keyword}, '%')
+                </if>
+
+                <if test='type.equals("C")'>
+                    content like concat('%', #{keyword}, '%')
+                </if>
+
+                <if test='type.equals("W")'>
+                    writer like concat('%', #{keyword}, '%')
+                </if>
+            </foreach>
+        </if>
+    </sql>
+
+    <select id="listSearch"  resultType="BoardDto">
+        select bno, title, writer, regDate from tbl_board
+        where delFlag = false
+
+        <include refid="search"></include>
+
+        order by bno desc
+        limit #{skip}, #{count}
+    </select>
+
+    <select id="listCountSearch"  resultType="int">
+        select count(bno) from tbl_board
+        where delFlag = false
+
+        <include refid="search"></include>
     </select>
 
 </mapper>

@@ -16,12 +16,17 @@ public class BoardListPagingDto {
     private boolean prev, next;
     private List<Integer> pageNums;
 
-    public BoardListPagingDto(List<BoardDto> boardDtoList, int totalCount, int page, int size) {
+    private String types;
+    private String keyword;
+
+    public BoardListPagingDto(List<BoardDto> boardDtoList, int totalCount, int page, int size, String types, String keyword) {
 
         this.boardDtoList = boardDtoList;
         this.totalCount = totalCount;
         this.page = page;
         this.size = size;
+        this.types = types;
+        this.keyword = keyword;
 
         // start 계산
         int tempEnd = (int)(Math.ceil(page/10.0)) * 10;

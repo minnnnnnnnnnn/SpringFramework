@@ -8,6 +8,22 @@
                 <h6 class="m-0 font-weight-bold-text-primary">Board List</h6>
             </div>
             <div class="card-body">
+                <div class="d-flex justify-content-end" style="margin-bottom: 2em">
+                    <div style="width: 50%;" class="d-flex">
+                        <select name="typeSelect" class="form-select form-control me-2">
+                            <option value="">--</option>
+                            <option value="T" ${dto.types == 'T' ? 'selected' : ''}>제목</option>
+                            <option value="C" ${dto.types == 'C' ? 'selected' : ''}>내용</option>
+                            <option value="W" ${dto.types == 'W' ? 'selected' : ''}>작성자</option>
+                            <option value="TC" ${dto.types == 'TC' ? 'selected' : ''}>제목 OR 내용</option>
+                            <option value="TW" ${dto.types == 'TW' ? 'selected' : ''}>제목 OR 작성자</option>
+                            <option value="TCW" ${dto.types == 'TCW' ? 'selected' : ''}>제목 OR 내용 OR 작성자</option>
+                        </select>
+                        <input type="text" class="form-control me-2" name="keywordInput" value="<c:out value='${dto.keyword}'/>" />
+                        <button class="btn btn-outline-info searchBtn">Search</button>
+                    </div>
+                </div>
+
                 <table class="table table-bordered" id="dataTable">
                     <thead>
                     <tr>
@@ -76,6 +92,7 @@
     </div>
 </div>
 <script type="text/javascript" defer="defer">
+    // 게시물 삭제 모달
     const result = '${result}'
     const myModal = new bootstrap.Modal(document.getElementById('myModal'))
 
@@ -85,6 +102,7 @@
         myModal.show()
     }
 
+    // 페이징 기법
     const pagingDiv = document.querySelector(".pagination")
 
     pagingDiv.addEventListener("click", (e) => {
@@ -101,9 +119,34 @@
             page: targetPage,
             size: size
         });
+
+        const types = '${dto.types}'
+        const keyword = '${dto.keyword}'
+
+        if (types && keyword) {
+            params.set('types', types)
+            params.set('keyword', keyword)
+        }
+        console.log(params.toString())
+
         self.location = `/board/list?\${params.toString()}`
 
     }, false)
+
+    // 검색
+    document.querySelector(".searchBtn").addEventListener('click', e => {
+
+        const keyword = document.querySelector("input[name='keywordInput']").value
+        const selectObj = document.querySelector("select[name='typeSelect']")
+        const types = selectObj.options[selectObj.selectedIndex].value
+        const params = new URLSearchParams({
+            types: types,
+            keyword: keyword
+        });
+        self.location = `/board/list?\${params.toString()}`
+
+    }, false)
+
 </script>
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>
 <html>

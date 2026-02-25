@@ -91,4 +91,18 @@ public class BoardMapperTest {
 
         dtoList.stream().forEach(log::info);
     }
+
+    @Test
+    public void testSearch() {
+
+        int page = 2;
+
+        int skip = (page -1) * 10;
+        int count = 10;
+
+        String[] types = new String[] {"T", "C", "W"};
+        String keyword = "Test";
+
+        boardMapper.listSearch(skip, count, types, keyword);
+    }
 }
