@@ -41,4 +41,11 @@ public class ReplyController {
         return ResponseEntity.ok(replyService.listOfBoard(bno, page, size));
     }
 
+    @GetMapping("/{rno}")
+    public ResponseEntity<ReplyDto> read(@PathVariable("rno") Long rno) {
+        log.info("rno: " + rno);
+
+        return ResponseEntity.ok(replyService.getOne(rno));
+    }
+
 }
