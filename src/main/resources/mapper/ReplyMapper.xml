@@ -33,7 +33,7 @@
         select * from tbl_reply
         where bno = #{bno}
         and rno > 0
-        order by rno asc
+        order by rno desc
         limit #{limit} offset #{skip}
     </select>
 

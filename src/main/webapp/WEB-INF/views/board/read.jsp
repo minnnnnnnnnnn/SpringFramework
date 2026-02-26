@@ -146,7 +146,7 @@
 
     const bno = ${board.bno}
 
-    function getReplies(pageNum, goLast) {
+    function getReplies(pageNum, goFirst) {
 
         axios.get(`/replies/\${bno}/list`, {
             params : {
@@ -158,10 +158,8 @@
             console.log(data)
 
             const {totalCount, page, size} = data
-            if (goLast && totalCount > (page * size)) {
-                const lastPage = Math.ceil(totalCount / size)
-
-                getReplies(lastPage)
+            if (goFirst) {
+                getReplies(1, false)
             } else {
                 currentPage = page
                 currentSize = size
