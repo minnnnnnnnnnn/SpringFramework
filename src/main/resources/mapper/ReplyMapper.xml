@@ -12,4 +12,35 @@
         insert into tbl_reply (bno, replyText, replyer) values (#{bno}, #{replyText}, #{replyer})
     </insert>
 
+    <select id="read" resultType="ReplyDto">
+        select * from tbl_reply
+        where rno = #{rno}
+    </select>
+
+    <update id="delete">
+        update tbl_reply
+        set delFlag = true
+        where rno = #{rno}
+    </update>
+
+    <update id="update">
+        update tbl_reply
+        set replyText = #{replyText}, updateDate = now()
+        where rno = #{rno}
+    </update>
+
+    <select id="listOfBoard" resultType="ReplyDto">
+        select * from tbl_reply
+        where bno = #{bno}
+        and rno > 0
+        order by rno asc
+        limit #{limit} offset #{skip}
+    </select>
+
+    <select id="countOfBoard" resultType="int">
+        select count(rno) from tbl_reply
+        where bno = #{bno}
+        and rno > 0
+    </select>
+
 </mapper>
