@@ -310,6 +310,27 @@
         })
     }, false)
 
+    document.querySelector(".btnReplyMod").addEventListener("click", e => {
+
+        e.preventDefault()
+        e.stopPropagation()
+
+        const formData = new FormData(replyModForm)
+        const rno = formData.get("rno")
+
+        console.log("rno: " + rno)
+
+        axios.put(`/replies/\${rno}`, formData).then(res => {
+
+            const data = res.data
+            console.log(data)
+
+            replyModal.hide()
+
+            getReplies(currentPage)
+        })
+    }, false)
+
 </script>
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>
