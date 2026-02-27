@@ -48,4 +48,23 @@ public class ReplyController {
         return ResponseEntity.ok(replyService.getOne(rno));
     }
 
+    @DeleteMapping("/{rno}")
+    public ResponseEntity<Map<String, String>> delete(@PathVariable("rno") Long rno) {
+
+        log.info("rno: " + rno);
+        replyService.remove(rno);
+
+        return ResponseEntity.ok(Map.of("result", "deleted"));
+    }
+
+    @PutMapping("/{rno}")
+    public ResponseEntity<Map<String, String>> modify(@PathVariable("rno") Long rno, ReplyDto replyDto) {
+
+        log.info("rno: " + rno);
+        replyDto.setRno(rno);
+
+        replyService.modify(replyDto);
+
+        return ResponseEntity.ok(Map.of("result", "modified"));
+    }
 }

@@ -136,8 +136,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">수정</button>
-                <button type="button" class="btn btn-danger">삭제</button>
+                <button type="button" class="btn btn-primary btnReplyMod">수정</button>
+                <button type="button" class="btn btn-danger btnReplyDel">삭제</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
             </div>
         </div>
@@ -286,6 +286,27 @@
             } else {
                 alert("삭제된 댓글은 조회할 수 없습니다.")
             }
+        })
+    }, false)
+
+    // 댓글 삭제 모달
+    document.querySelector(".btnReplyDel").addEventListener("click", e => {
+
+        e.preventDefault()
+        e.stopPropagation()
+
+        const formData = new FormData(replyModForm)
+        const rno = formData.get("rno")
+
+        console.log("rno: " + rno)
+
+        axios.delete(`/replies/\${rno}`).then(res => {
+
+            const data = res.data
+            console.log(data)
+
+            replyModal.hide()
+            getReplies(currentPage)
         })
     }, false)
 

@@ -61,7 +61,7 @@ public class ReplyMapperTests {
     @Test
     public void testDelete() {
 
-        Long rno = 2L;
+        Long rno = 35L;
 
         log.info("--------");
         log.info(replyMapper.delete(rno));

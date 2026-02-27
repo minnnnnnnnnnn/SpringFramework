@@ -19,7 +19,7 @@
 
     <update id="delete">
         update tbl_reply
-        set delFlag = true
+        set delFlag = true, replyText='삭제된 댓글입니다.', replyer='unknown'
         where rno = #{rno}
     </update>
 
