@@ -1,6 +1,7 @@
 package org.zerock.controller;
 
 import lombok.extern.log4j.Log4j2;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.dto.ProductDto;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -37,7 +35,18 @@ public class ProductController {
         log.info(productDto);
         log.info(files);
 
-        uploadFiles(files);
+        List<String> uploadNames = uploadFiles(files);
+
+        uploadNames.forEach(name -> {
+
+            String uuid = name.substring(0, 36);
+            String fileName = name.substring(37);
+
+            log.info(uuid);
+            log.info(fileName);
+
+            productDto.addImage(uuid, fileName);
+        });
 
         return "redirect:/product/list";
     }
@@ -75,9 +84,35 @@ public class ProductController {
                 log.error(e.getMessage());
                 throw new RuntimeException(e.getMessage());
             }
+
+            if (file.getContentType().startsWith("image")) {
+
+                try {
+                    Thumbnails.of(targetFile)
+                            .size(200, 200)
+                            .toFile(new File(uploadPath, "s_" + uploadName));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return uploadNames;
     }
 
+    private void deleteFiles(List<String> fileNames) {
 
+        try {
+            File uploadPath = new File("C:\\upload");
+
+            for (String fileName : fileNames) {
+                File targetFile = new File(uploadPath, fileName);
+
+                targetFile.delete();
+
+                File targetThumb = new File(uploadPath, "s_" + fileName);
+
+                targetThumb.delete();
+            }
+        } catch (Exception e) {}
+    }
 }
