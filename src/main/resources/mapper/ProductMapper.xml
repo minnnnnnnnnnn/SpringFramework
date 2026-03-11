@@ -60,4 +60,17 @@
         set pname=#{pname}, pdesc=#{pdesc}, price=#{price}
         where pno = #{pno}
     </update>
+
+    <select id="list">
+        select p.pno, pname, pdesc, price, sale, writer, p.regDate, ino, uuid, filename, ord
+        from tbl_product as p left outer join tbl_product_image as pimg on pimg.pno = p.pno
+        where pimg.ord = 0
+        order by p.pno desc
+        limit #{count} offset #{skip}
+    </select>
+
+    <select id="listCount">
+        select count(*) from tbl_product
+    </select>
+
 </mapper>

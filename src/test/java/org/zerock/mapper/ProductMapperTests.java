@@ -74,4 +74,38 @@ public class ProductMapperTests {
 
     }
 
+    @Transactional
+    @Commit
+    @Test
+    public void testInsertDummies() {
+
+        for (int i = 0; i < 45; i ++) {
+
+            ProductDto productDto = ProductDto.builder()
+                    .pname("Product"  + i)
+                    .pdesc("Product Desc" + i)
+                    .writer("user" + (i % 10))
+                    .price(4000)
+                    .build();
+
+            productMapper.insert(productDto);
+
+            productDto.addImage(i+ "_test_1.jpg", "image1.jpg");
+            productDto.addImage(i+"_test__2.jpg", "image2.jpg");
+
+            log.info("--------");
+            log.info(productDto.getImageList());
+
+            productMapper.insertImages(productDto);
+        }
+    }
+
+    @Test
+    public void testList() {
+
+        productMapper.list(0, 10).forEach(log::info);
+
+        log.info(productMapper.listCount());
+    }
+
 }
