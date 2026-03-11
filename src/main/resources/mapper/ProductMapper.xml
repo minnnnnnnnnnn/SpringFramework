@@ -61,7 +61,7 @@
         where pno = #{pno}
     </update>
 
-    <select id="list">
+    <select id="list" resultType="productDto">
         select p.pno, pname, pdesc, price, sale, writer, p.regDate, ino, uuid, filename, ord
         from tbl_product as p left outer join tbl_product_image as pimg on pimg.pno = p.pno
         where pimg.ord = 0
@@ -69,7 +69,7 @@
         limit #{count} offset #{skip}
     </select>
 
-    <select id="listCount">
+    <select id="listCount" resultType="int">
         select count(*) from tbl_product
     </select>
 
