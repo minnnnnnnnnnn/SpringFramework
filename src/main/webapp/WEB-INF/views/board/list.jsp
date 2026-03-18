@@ -151,11 +151,3 @@
 
 </script>
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
