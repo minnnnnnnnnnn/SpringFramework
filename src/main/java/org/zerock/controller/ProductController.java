@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.dto.ProductDto;
+import org.zerock.dto.ProductListPagingDto;
 import org.zerock.service.ProductService;
 
 import java.io.*;
@@ -122,5 +124,16 @@ public class ProductController {
                 targetThumb.delete();
             }
         } catch (Exception e) {}
+    }
+
+    @GetMapping
+    public void list(
+            @RequestParam(name="page", defaultValue = "1") int page,
+            @RequestParam(name="size", defaultValue = "10") int size,
+            Model model
+    ) {
+        ProductListPagingDto dto = productService.getList(page, size);
+
+        model.addAttribute("dto", dto);
     }
 }
