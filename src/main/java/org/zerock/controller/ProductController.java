@@ -126,7 +126,7 @@ public class ProductController {
         } catch (Exception e) {}
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public void list(
             @RequestParam(name="page", defaultValue = "1") int page,
             @RequestParam(name="size", defaultValue = "10") int size,
